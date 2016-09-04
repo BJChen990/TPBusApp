@@ -1,0 +1,22 @@
+{
+  "name": "TPBusApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "flux": "^2.1.1",
+    "react": "15.3.1",
+    "react-native": "0.32.0",
+    "react-native-maps": "^0.8.0",
+    "rnpm": "^1.9.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-flow-strip-types": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "eslint-plugin-react": "^6.2.0",
+    "flow-bin": "^0.32.0"
+  }
+}

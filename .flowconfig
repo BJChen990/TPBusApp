@@ -1,0 +1,6 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/react-native/*
+<PROJECT_ROOT>/node_modules/fbemitter/*
+<PROJECT_ROOT>/node_modules/fbjs/*
+<PROJECT_ROOT>/node_modules/flux/*
+<PROJECT_ROOT>/node_modules/react/*
