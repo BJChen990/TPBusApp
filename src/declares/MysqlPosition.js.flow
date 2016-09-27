@@ -1,6 +1,0 @@
-declare type MysqlPosition = {
-    type: string,
-    coordinates: number[],
-}
-
-declare type Coordinate = { longitude: number, latitude: number};

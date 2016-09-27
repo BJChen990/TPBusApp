@@ -9,16 +9,25 @@ import MapView from 'react-native-maps';
 
 const width: number = Dimensions.get('window').width;
 
-type Coordinate = { longitude: number, latitude: number};
-type UserLocation = { coords: Coordinate }
-type Props = { userLocation: UserLocation}
+type Coordinate = { longitude: number, latitude: number };
+type UserLocation = { coords: Coordinate };
+type Props = { userLocation: UserLocation };
+type State = { detailStop: ?CompoundStop };
 
 export default class BusMapApp extends Component {
 
     props: Props;
+    state: State;
 
     static propTypes = {
         userLocation: PropTypes.object
+    }
+
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            detailStop: null
+        };
     }
 
     componentWillReceiveProps(nextProps: Props) {
@@ -34,12 +43,17 @@ export default class BusMapApp extends Component {
         }
     }
 
+    _handleCalloutPress = (stop: CompoundStop) => {
+        this.setState({ detailStop: stop });
+    }
+
     render() {
         const {userLocation} = this.props;
 
         const mapOverlap = (userLocation) ? (
             <NearbyStopMapContainer
                 coordinate={userLocation.coords}
+                onCalloutPress={this._handleCalloutPress}
             />
         ) : null;
 

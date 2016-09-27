@@ -3,12 +3,13 @@ import React, {Component, PropTypes} from 'react';
 import NearbyStopMap from './NearbyStopMap.react';
 
 type State = { stops: Object[] }
-type Props = { coordinate: Coordinate }
+type Props = { coordinate: Coordinate, onCalloutPress: (stop: CompoundStop) => void }
 
 export default class NearbyStopMapContainer extends Component {
 
     static propTypes = {
         coordinate: PropTypes.object,
+        onCalloutPress: PropTypes.func,
     }
 
     props: Props;
@@ -50,6 +51,6 @@ export default class NearbyStopMapContainer extends Component {
     render() {
         const {stops} = this.state;
 
-        return (<NearbyStopMap stops={stops} />);
+        return (<NearbyStopMap stops={stops} onCalloutPress={this.props.onCalloutPress} />);
     }
 }

@@ -1,6 +1,6 @@
 [libs]
-src/interfaces/
-src/declares/
+interfaces/
+declares/
 
 [ignore]
 <PROJECT_ROOT>/node_modules/react-native/*
