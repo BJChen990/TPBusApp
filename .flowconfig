@@ -1,3 +1,7 @@
+[libs]
+src/interfaces/
+src/declares/
+
 [ignore]
 <PROJECT_ROOT>/node_modules/react-native/*
 <PROJECT_ROOT>/node_modules/fbemitter/*

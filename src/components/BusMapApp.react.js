@@ -1,24 +1,27 @@
-import React from 'react';
+// @flow
+import React, {Component, PropTypes} from 'react';
 import {
   Dimensions,
   View
 } from 'react-native';
+import NearbyStopMapContainer from './NearbyStopMapContainer.react';
 import MapView from 'react-native-maps';
 
-const {width, height} = Dimensions.get('window');
+const width: number = Dimensions.get('window').width;
 
-export default class BusMapApp extends React.Component {
+type Coordinate = { longitude: number, latitude: number};
+type UserLocation = { coords: Coordinate }
+type Props = { userLocation: UserLocation}
+
+export default class BusMapApp extends Component {
+
+    props: Props;
 
     static propTypes = {
-        stops: React.PropTypes.array,
-        userLocation: React.PropTypes.object
+        userLocation: PropTypes.object
     }
 
-    static defaultProps = {
-        stops: []
-    }
-
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: Props) {
         if (!this.props.userLocation && nextProps.userLocation) {
             const {longitude, latitude} = nextProps.userLocation.coords;
 
@@ -32,6 +35,14 @@ export default class BusMapApp extends React.Component {
     }
 
     render() {
+        const {userLocation} = this.props;
+
+        const mapOverlap = (userLocation) ? (
+            <NearbyStopMapContainer
+                coordinate={userLocation.coords}
+            />
+        ) : null;
+
         return (
             <View style={{flex: 1}}>
                 <MapView
@@ -39,6 +50,7 @@ export default class BusMapApp extends React.Component {
                     style={{flex: 1, width}}
                     showsUserLocation={true}
                 >
+                    {mapOverlap}
                 </MapView>
             </View>
         );
