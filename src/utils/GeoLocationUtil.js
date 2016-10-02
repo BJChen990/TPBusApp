@@ -1,13 +1,13 @@
 // @flow
 
-import MathUtil from './MathUtil';
-const RADIUS_OF_EARTH = 6371;
+// import MathUtil from './MathUtil';
+// const RADIUS_OF_EARTH = 6371;
 
 const DEFAULT_GPS_OPTIONS = {
     enableHighAccuracy: true,
     timeout: 20000,
     maximumAge: 1000
-}
+};
 
 export default class GeoLocationUtil {
     // static getDistanceBetweenPoints(lon1, lat1, lon2, lat2) {
@@ -29,14 +29,14 @@ export default class GeoLocationUtil {
                 (coordinate) => {
                     resolve(coordinate);
                 },
-                (err) => {
-                    reject(err);
+                (err: Error) => {
+                    reject(err.stack);
                 },
                 {
                     ...DEFAULT_GPS_OPTIONS,
                     ...options
                 }
             );
-        })
+        });
     }
 }

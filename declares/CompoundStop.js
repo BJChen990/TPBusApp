@@ -14,3 +14,9 @@ declare type Coordinate = {
     longitude: number,
     latitude: number
 }
+
+declare type Route = {
+    routeId: number,
+    nameZh: string,
+    pathAttributeId: number
+}

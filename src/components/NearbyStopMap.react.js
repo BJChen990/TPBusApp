@@ -1,11 +1,10 @@
 // @flow
 import React, {Component, PropTypes} from 'react';
 import {View} from 'react-native';
-import BusStopMarker from './BusStopMarker';
+import BusStopMarkerContainer from './BusStopMarkerContainer.react';
 
 type Props = {
     stops: CompoundStop[],
-    onCalloutPress: (stop: CompoundStop) => void
 }
 
 export default class NearbyStopMap extends Component {
@@ -14,18 +13,17 @@ export default class NearbyStopMap extends Component {
 
     static propTypes = {
         stops: PropTypes.array,
-        onCalloutPress: PropTypes.func
     }
 
     render() {
         const {stops} = this.props;
         const stopMarker = stops.map((stop) => {
             return (
-                <BusStopMarker
+                <BusStopMarkerContainer
                     key={stop.id}
                     stop={stop}
-                    onCalloutPress={this.props.onCalloutPress}
-                />);
+                />
+            );
         });
 
         return (

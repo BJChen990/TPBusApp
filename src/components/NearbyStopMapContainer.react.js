@@ -1,19 +1,33 @@
 // @flow
 import React, {Component, PropTypes} from 'react';
+import {Container} from 'flux/utils';
 import NearbyStopMap from './NearbyStopMap.react';
+import StopStore from '../stores/StopStore';
+import StopAction from '../actions/StopAction';
 
-type State = { stops: Object[] }
-type Props = { coordinate: Coordinate, onCalloutPress: (stop: CompoundStop) => void }
+type State = { stops: CompoundStop[] }
+type Props = {
+    coordinate: Coordinate,
+}
 
-export default class NearbyStopMapContainer extends Component {
+class NearbyStopMapContainer extends Component {
 
     static propTypes = {
         coordinate: PropTypes.object,
-        onCalloutPress: PropTypes.func,
     }
 
     props: Props;
     state: State;
+
+    static getStores() {
+        return [StopStore];
+    }
+
+    static calculateState() {
+        return {
+            stops:  StopStore.getStops()
+        };
+    }
 
     constructor(props: Props) {
         super(props);
@@ -26,7 +40,7 @@ export default class NearbyStopMapContainer extends Component {
         const coordinate = this.props.coordinate;
 
         if (coordinate) {
-            this._fetchStops(coordinate);
+            StopAction.getStopsByLocation(coordinate.longitude, coordinate.latitude, 0.003);
         }
     }
 
@@ -34,23 +48,17 @@ export default class NearbyStopMapContainer extends Component {
         const coordinate = nextProps.coordinate;
 
         if (this.props.coordinate !== coordinate) {
-            this._fetchStops(coordinate);
+            StopAction.getStopsByLocation(coordinate.longitude, coordinate.latitude, 0.003);
         }
-    }
-
-    _fetchStops = (coordinate: Coordinate) => {
-        fetch(`http://192.168.31.158:3000/stops/nearby/${coordinate.longitude}/${coordinate.latitude}/0.003/`)
-            .then((response) => {
-                return response.json();
-            })
-            .then((stops: Object[]) => {
-                this.setState({stops});
-            });
     }
 
     render() {
         const {stops} = this.state;
 
-        return (<NearbyStopMap stops={stops} onCalloutPress={this.props.onCalloutPress} />);
+        return (
+            <NearbyStopMap stops={stops} />
+        );
     }
 }
+
+export default Container.create(NearbyStopMapContainer, {withProps: true});
